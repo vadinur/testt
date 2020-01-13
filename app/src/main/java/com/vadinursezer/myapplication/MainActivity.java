@@ -21,30 +21,28 @@ SharedPreferences sharedPreferences;
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        SharedPreferences sharedPreferences=this.getSharedPreferences("com.vadinursezer.myapplication", Context.MODE_PRIVATE);
-        int storeAge = sharedPreferences.getInt("storedAge",0);
-        if (storeAge== 0){
-            String resultString = getResources().getString(R.string.yourAge, storeAge);
-            resultAge.setText(resultString);
+        sharedPreferences = this.getSharedPreferences("com.vadinursezer.myapplication",Context.MODE_PRIVATE);
+       int storeAge = sharedPreferences.getInt("storeAge",0);
+
+        if (storeAge==0){
+            resultAge.setText("Your Age: ");
         }else {
-            String resultString = getResources().getString(R.string.yourAge, storeAge);
-            resultAge.setText(resultString + storeAge);
+            resultAge.setText("Your Age: " + storeAge);
         }
     }
 
     public void save (View view){
-        if (numberAge.getText().toString().matches("")) {
-            String resultString = "Enter Age!";
-            resultAge.setText(resultString);
-        }else {
-
-            int age = Integer.parseInt(numberAge.getText().toString());
-            String resultString = getResources().getString(R.string.result, age);
-            resultAge.setText(resultString);
-            numberAge.setText("");
-            sharedPreferences.edit().putInt("storedAge",age).apply();
+        if (!numberAge.getText().toString().matches("")){
+            int userAge=Integer.parseInt(numberAge.getText().toString());
+            resultAge.setText("Your Age: " + userAge);
+            sharedPreferences.edit().putInt("storeAge",userAge).apply();
         }
-
     }
-
+    public void clear(View view){
+        int storeData = sharedPreferences.getInt("storeAge",0)
+        if (storeData != 0){
+            sharedPreferences.edit().remove("storeAge").apply();
+            resultAge.setText("Your Age: ");
+        }
+    }
 }
