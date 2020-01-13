@@ -39,7 +39,7 @@ SharedPreferences sharedPreferences;
         }
     }
     public void clear(View view){
-        int storeData = sharedPreferences.getInt("storeAge",0)
+        int storeData = sharedPreferences.getInt("storeAge",0);
         if (storeData != 0){
             sharedPreferences.edit().remove("storeAge").apply();
             resultAge.setText("Your Age: ");
